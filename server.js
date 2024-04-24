@@ -1,21 +1,25 @@
-const mongoose = require('mongoose');
-const app = require('./app.js');
-const dbDataUpload = require('./configs/db_data.js')
+const mongoose = require("mongoose");
+const app = require("./app.js");
+const dbDataUpload = require("./configs/db_data.js");
 
-const url = 'mongodb+srv://$_USERNAME_$:$_PASSWORD_$@cluster0.dpithd6.mongodb.net/$_DB_NAME_$?retryWrites=true&w=majority&appName=Cluster0';
-const databaseUser = 'likhileshexplorin';
-const databasePassword = 'abcd1234';
-const databaseName = 'Amazon-Backend';
+// const test = require("./models/reviewModel.js");
 
-let dbLink = url.replace("$_USERNAME_$", databaseUser);
-dbLink = dbLink.replace("$_PASSWORD_$", databasePassword);
-dbLink = dbLink.replace("$_DB_NAME_$", databaseName);
+const URL =
+  "mongodb+srv://$_USERNAME_$:$_PASSWORD_$@clustor0.pc5ijeq.mongodb.net/$_DB_NAME_$?retryWrites=true&w=majority&appName=clustor0";
+
+const dbUsername = "addbd";
+const dbPass = "GB8ZFjmmwkqYSiaZ";
+const dbName = "Amazon-Backend";
+
+let dbLink = URL.replace("$_USERNAME_$", dbUsername);
+dbLink = dbLink.replace("$_PASSWORD_$", dbPass);
+dbLink = dbLink.replace("$_DB_NAME_$", dbName);
 
 mongoose.connect(dbLink).then(() => {
-  console.log('-------- Database Connected --------');
-//   dbDataUpload();
+  console.log("-------- Database Connected --------");
+  // dbDataUpload();
 });
 
-app.listen(1400,() => {
-    console.log('----------- App Started -----------')
+app.listen(5001, () => {
+  console.log("----------- App Started -----------");
 });

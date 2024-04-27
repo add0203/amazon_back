@@ -1,4 +1,7 @@
 const UserSchema = require("../models/userModel");
+const bcrypt = require("bcryptjs");
+const { v4: uuidv4 } = require("uuid");
+const { setUser } = require("../service/auth");
 
 const { generateToken } = require("../helper/jwt");
 // 24-04-24
@@ -72,11 +75,39 @@ const signUp = async (req, res) => {
     password,
   });
 
-  res.render("home");
+  // res.render("home");
+  return res.redirect("/api/products");
+};
+
+const logIn = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const userExist = await UserSchema.findOne({ email });
+
+    const sessionId = uuidv4();
+    // console.log(userExist);
+
+    if (!userExist) return res.render("authError");
+
+    const isPasswordValid = await bcrypt.compare(password, userExist.password);
+    // console.log(isPasswordValid);
+    if (!isPasswordValid) {
+      return res.render("authError");
+    } else {
+      setUser(sessionId, userExist);
+      return res.cookie("uid", sessionId).redirect("/api/products");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  // res.render("home");
 };
 
 module.exports = {
   signIn,
   register,
   signUp,
+  logIn,
 };

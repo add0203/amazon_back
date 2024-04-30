@@ -105,6 +105,8 @@ const logIn = async (req, res) => {
   // res.render("home");
 };
 
+const resetPassword = async (req, res) => {};
+
 module.exports = {
   signIn,
   register,

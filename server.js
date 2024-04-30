@@ -1,3 +1,4 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const app = require("./app.js");
 const dbDataUpload = require("./configs/db_data.js");
@@ -14,6 +15,8 @@ const dbName = "Amazon-Backend";
 let dbLink = URL.replace("$_USERNAME_$", dbUsername);
 dbLink = dbLink.replace("$_PASSWORD_$", dbPass);
 dbLink = dbLink.replace("$_DB_NAME_$", dbName);
+
+console.log(process.env.car);
 
 mongoose.connect(dbLink).then(() => {
   console.log("-------- Database Connected --------");
